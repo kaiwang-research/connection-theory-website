@@ -1,18 +1,26 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
-    <nav className="w-full border-b border-gray-200">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
-        <h1 className="text-xl font-bold">
+    <nav className="w-full border-b border-slate-200 bg-[#f7f7f5] text-slate-900">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <Link href="/" className="text-xl font-bold">
           Connection Theory
-        </h1>
+        </Link>
 
         <div className="flex gap-6 text-sm">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/framework">Framework</a>
-          <a href="/foundations">Foundations</a>
-          <a href="/frameworks">Frameworks</a>
-          <a href="/papers">Papers</a>
+          <Link className="hover:text-slate-600" href="/">
+            Home
+          </Link>
+          <Link className="hover:text-slate-600" href="/docs">
+            Documentation
+          </Link>
+          <Link className="hover:text-slate-600" href="/papers">
+            Papers
+          </Link>
+          <Link className="hover:text-slate-600" href="/about">
+            About
+          </Link>
         </div>
       </div>
     </nav>

@@ -1,0 +1,31 @@
+.markdown {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.markdown h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+}
+
+.markdown h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+}
+
+.markdown p {
+  line-height: 1.8;
+  margin: 1rem 0;
+}
+
+.markdown ul,
+.markdown ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.markdown li {
+  margin: 0.5rem 0;
+}

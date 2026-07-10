@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background: #f7f7f5;
+  --foreground: #1f2933;
+  --surface: #ffffff;
+  --surface-muted: #f1f3f5;
+  --border: #d9dee3;
+  --muted: #667085;
 }
 
 @theme inline {
@@ -12,15 +17,100 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.markdown {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0 auto;
+  color: var(--foreground);
+  overflow-wrap: anywhere;
+}
+
+.markdown h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1.25rem;
+}
+
+.markdown h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 2rem 0 1rem;
+}
+
+.markdown h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 1.75rem 0 0.75rem;
+}
+
+.markdown p {
+  line-height: 1.8;
+  margin: 1rem 0;
+}
+
+.markdown ul,
+.markdown ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.markdown li {
+  margin: 0.5rem 0;
+}
+
+.markdown img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.markdown table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.markdown code {
+  border-radius: 0.25rem;
+  background: #eef1f4;
+  padding: 0.15rem 0.35rem;
+  overflow-wrap: anywhere;
+}
+
+.markdown pre {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: #f4f6f8;
+  padding: 1rem;
+}
+
+.markdown pre code {
+  background: transparent;
+  padding: 0;
+  overflow-wrap: normal;
 }
