@@ -1,15 +1,15 @@
 import { notFound } from "next/navigation";
 import DocsLayout from "../../../../components/DocsLayout";
-import { readMarkdown } from "../../../../lib/content";
+import {
+  listMarkdownSlugs,
+  readMarkdown,
+} from "../../../../lib/content";
 import { renderMarkdown } from "../../../../lib/markdown";
-import { listLocalMarkdownSlugs } from "../../../../lib/providers/local";
 import { getDocumentationToc } from "../../../../lib/toc";
 import { addExistingConceptLinks } from "../../../../lib/contentLinks";
 
 interface ConceptPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 }
 
 export default async function ConceptPage({
@@ -18,11 +18,12 @@ export default async function ConceptPage({
   const { slug } = await params;
 
   try {
-    const [document, toc, existingConceptSlugs] = await Promise.all([
-      readMarkdown("foundations", slug),
-      getDocumentationToc(),
-      listLocalMarkdownSlugs("foundations"),
-    ]);
+    const [document, toc, existingConceptSlugs] =
+      await Promise.all([
+        readMarkdown("foundations", slug),
+        getDocumentationToc(),
+        listMarkdownSlugs("foundations"),
+      ]);
 
     const renderedHtml = await renderMarkdown(
       document.content
@@ -31,18 +32,14 @@ export default async function ConceptPage({
     const contentHtml = addExistingConceptLinks(
       renderedHtml,
       toc.sections,
-      {
-        existingConceptSlugs,
-      }
+      { existingConceptSlugs }
     );
 
     return (
       <DocsLayout>
         <article
           className="markdown"
-          dangerouslySetInnerHTML={{
-            __html: contentHtml,
-          }}
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
       </DocsLayout>
     );

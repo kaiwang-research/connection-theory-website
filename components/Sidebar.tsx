@@ -1,36 +1,30 @@
 import { getDocumentationToc } from "../lib/toc";
-import { listLocalMarkdownSlugs } from "../lib/providers/local";
+import { listMarkdownSlugs } from "../lib/content";
 import SidebarNav from "./SidebarNav";
 
 function getSlugFromConceptHref(href: string): string | null {
   const prefix = "/docs/concepts/";
-
-  if (!href.startsWith(prefix)) {
-    return null;
-  }
-
-  return href.slice(prefix.length);
+  return href.startsWith(prefix)
+    ? href.slice(prefix.length)
+    : null;
 }
 
 export default async function Sidebar() {
   const [toc, existingConceptSlugs] = await Promise.all([
     getDocumentationToc(),
-    listLocalMarkdownSlugs("foundations"),
+    listMarkdownSlugs("foundations"),
   ]);
 
   const existingConcepts = new Set(existingConceptSlugs);
 
   const visibleSections = toc.sections
     .map((section) => {
-      if (section.title !== "Concepts") {
-        return section;
-      }
+      if (section.title !== "Concepts") return section;
 
       return {
         ...section,
         items: section.items.filter((item) => {
           const slug = getSlugFromConceptHref(item.href);
-
           return slug ? existingConcepts.has(slug) : true;
         }),
       };

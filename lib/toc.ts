@@ -1,5 +1,5 @@
 import { load } from "js-yaml";
-import { readLocalText } from "./providers/local";
+import { readText } from "./content";
 
 export interface TocItem {
   title: string;
@@ -16,12 +16,8 @@ export interface DocumentationToc {
 }
 
 function isTocItem(value: unknown): value is TocItem {
-  if (!value || typeof value !== "object") {
-    return false;
-  }
-
+  if (!value || typeof value !== "object") return false;
   const item = value as Record<string, unknown>;
-
   return (
     typeof item.title === "string" &&
     typeof item.href === "string"
@@ -29,12 +25,8 @@ function isTocItem(value: unknown): value is TocItem {
 }
 
 function isTocSection(value: unknown): value is TocSection {
-  if (!value || typeof value !== "object") {
-    return false;
-  }
-
+  if (!value || typeof value !== "object") return false;
   const section = value as Record<string, unknown>;
-
   return (
     typeof section.title === "string" &&
     Array.isArray(section.items) &&
@@ -43,7 +35,7 @@ function isTocSection(value: unknown): value is TocSection {
 }
 
 export async function getDocumentationToc(): Promise<DocumentationToc> {
-  const source = await readLocalText("toc.yml");
+  const source = await readText("toc.yml");
   const parsed = load(source);
 
   if (!parsed || typeof parsed !== "object") {
@@ -61,7 +53,5 @@ export async function getDocumentationToc(): Promise<DocumentationToc> {
     );
   }
 
-  return {
-    sections: document.sections,
-  };
+  return { sections: document.sections };
 }
